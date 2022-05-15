@@ -1,0 +1,77 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#main a,
+a:hover {
+  color: inherit !important;
+  text-decoration: inherit !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.active {
+  color: red;
+}
+
+.bg-color-main {
+  background-image: radial-gradient(circle farthest-side, #fceabb, #f8b500);
+}
+
+.height100 {
+  min-height: 100vh;
+}
+
+.cocktail-image {
+  max-width: 300px;
+}
+
+.panel {
+  background-color: #fceabb;
+  border-radius: 10px;
+}
+
+.hide {
+  display: none !important;
+}
+
+.list-counter-square {
+  list-style: none;
+  counter-reset: list;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.list-counter-square > li {
+  position: relative;
+  display: block;
+  height: 2rem;
+  line-height: 2rem;
+  margin-left: 2rem;
+  margin-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: rgb(0, 0, 0);
+  background: #fad97e;
+  white-space: nowrap;
+}
+.list-counter-square > li:last-child {
+  margin-bottom: 0;
+}
+.list-counter-square > li::before {
+  content: counter(list);
+  counter-increment: list;
+  position: absolute;
+  left: -2rem;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  color: #fff;
+  background: #f8b500;
+}
