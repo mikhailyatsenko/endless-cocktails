@@ -1,13 +1,13 @@
-import Cocktail from "./Cocktail";
+import CocktailPanel from "./CocktailPanel";
+import ButtonsAndSpinner from "./ButtonsAndSpinner";
 import React from "react";
+import { Container } from "react-bootstrap";
 
 class LoadCocktail extends React.Component {
   state = {
     cocktailData: [],
-    defaultHide: "hide",
     defaultShow: "",
     hideShowSpinner: "hide",
-    buttonStatus: "",
   };
 
   clickHandler = async (event) => {
@@ -15,9 +15,8 @@ class LoadCocktail extends React.Component {
 
     let t = event.target;
     if (!t.classList.contains("load-cocktail")) return true;
-
+    t.classList.add("disabled");
     this.setState({
-      buttonStatus: "disabled",
       hideShowSpinner: "",
       defaultShow: "hide",
     });
@@ -26,6 +25,7 @@ class LoadCocktail extends React.Component {
     let response = await fetch(url);
     let cocktailData = await response.json();
     cocktailData.ingridients = [];
+
     for (let i = 1; i <= 15; i++) {
       let ingr = "strIngredient" + i;
       if (cocktailData[ingr] !== null && cocktailData[ingr] !== "") {
@@ -36,9 +36,8 @@ class LoadCocktail extends React.Component {
     this.setState({
       hideShowSpinner: "hide",
       cocktailData: [...this.state.cocktailData, cocktailData],
-      defaultHide: "",
-      buttonStatus: "",
     });
+    t.classList.remove("disabled");
   };
 
   render() {
@@ -48,13 +47,21 @@ class LoadCocktail extends React.Component {
         id="main"
         className="bg-color-main height100 d-flex align-items-center"
       >
-        <Cocktail
-          cocktailData={this.state.cocktailData}
-          defaultHide={this.state.defaultHide}
-          defaultShow={this.state.defaultShow}
-          hideShowSpinner={this.state.hideShowSpinner}
-          buttonStatus={this.state.buttonStatus}
-        />
+        <Container className="p-3">
+          {this.state.cocktailData.map((coctail) => (
+            <CocktailPanel
+              key={coctail.strDrink}
+              name={coctail.strDrink}
+              img={coctail.strDrinkThumb}
+              ingridients={coctail.ingridients}
+              recipe={coctail.strInstructions}
+            />
+          ))}
+          <ButtonsAndSpinner
+            hideShowSpinner={this.state.hideShowSpinner}
+            defaultShow={this.state.defaultShow}
+          />
+        </Container>
       </section>
     );
   }
