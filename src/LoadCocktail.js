@@ -6,38 +6,40 @@ import { Container } from "react-bootstrap";
 class LoadCocktail extends React.Component {
   state = {
     cocktailData: [],
+    isLoading: false,
     defaultShow: "",
-    hideShowSpinner: "hide",
   };
 
-  clickHandler = async (event) => {
-    event.preventDefault();
-
-    let t = event.target;
-    if (!t.classList.contains("load-cocktail")) return true;
-    t.classList.add("disabled");
-    this.setState({
-      hideShowSpinner: "",
-      defaultShow: "hide",
-    });
-
-    let url = "https://cocktail.mikhailiatsien1.repl.co/random";
-    let response = await fetch(url);
-    let cocktailData = await response.json();
+  normalizeCoctailData(cocktailData) {
     cocktailData.ingridients = [];
-
     for (let i = 1; i <= 15; i++) {
       let ingr = "strIngredient" + i;
       if (cocktailData[ingr] !== null && cocktailData[ingr] !== "") {
         cocktailData.ingridients.push(cocktailData[ingr]);
       }
     }
+  }
+
+  clickHandler = async (event) => {
+    event.preventDefault();
+    let t = event.target;
+    if (!t.classList.contains("load-cocktail")) return true;
 
     this.setState({
-      hideShowSpinner: "hide",
-      cocktailData: [...this.state.cocktailData, cocktailData],
+      isLoading: true,
+      defaultShow: "hide ",
     });
-    t.classList.remove("disabled");
+
+    let url = "https://cocktail.mikhailiatsien1.repl.co/random";
+    let response = await fetch(url);
+    let cocktailData = await response.json();
+
+    this.normalizeCoctailData(cocktailData);
+
+    this.setState({
+      cocktailData: [...this.state.cocktailData, cocktailData],
+      isLoading: false,
+    });
   };
 
   render() {
@@ -48,17 +50,9 @@ class LoadCocktail extends React.Component {
         className="bg-color-main height100 d-flex align-items-center"
       >
         <Container className="p-3">
-          {this.state.cocktailData.map((coctail) => (
-            <CocktailPanel
-              key={coctail.strDrink}
-              name={coctail.strDrink}
-              img={coctail.strDrinkThumb}
-              ingridients={coctail.ingridients}
-              recipe={coctail.strInstructions}
-            />
-          ))}
+          <CocktailPanel cocktailData={this.state.cocktailData} />
           <ButtonsAndSpinner
-            hideShowSpinner={this.state.hideShowSpinner}
+            isLoading={this.state.isLoading}
             defaultShow={this.state.defaultShow}
           />
         </Container>

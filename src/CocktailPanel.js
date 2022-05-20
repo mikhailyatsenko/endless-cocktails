@@ -6,16 +6,16 @@ import CocktailRecipe from "./CocktailRecipe";
 
 class CocktailPanel extends React.Component {
   render() {
-    return (
-      <Row className="panel px-0 mb-4">
+    return this.props.cocktailData.map((cocktail) => (
+      <Row key={cocktail.strDrink} className="panel px-0 mb-4">
         <div className="text-center px-0">
-          <h3 className="card-header">{this.props.name}</h3>
+          <h3 className="card-header">{cocktail.strDrink}</h3>
         </div>
-        <CocktailImage img={this.props.img} />
-        <CocktailIngridients ingridients={this.props.ingridients} />
-        <CocktailRecipe recipe={this.props.recipe} />
+        <CocktailImage img={cocktail.strDrinkThumb} />
+        <CocktailIngridients ingridients={cocktail.ingridients} />
+        <CocktailRecipe recipe={cocktail.strInstructions} />
       </Row>
-    );
+    ));
   }
 }
 
