@@ -3,21 +3,37 @@ import ButtonsAndSpinner from "./ButtonsAndSpinner";
 import React from "react";
 import { Container } from "react-bootstrap";
 
-class LoadCocktail extends React.Component {
+class CocktailLoader extends React.Component {
   state = {
     cocktailData: [],
     isLoading: false,
     defaultShow: "",
   };
 
-  normalizeCoctailData(cocktailData) {
-    cocktailData.ingridients = [];
-    for (let i = 1; i <= 15; i++) {
-      let ingr = "strIngredient" + i;
-      if (cocktailData[ingr] !== null && cocktailData[ingr] !== "") {
-        cocktailData.ingridients.push(cocktailData[ingr]);
-      }
-    }
+  normalizeCocktailData(cocktailData) {
+    // cocktailData.ingridients = [];
+    // for (let i = 1; i <= 15; i++) {
+    //   let ingr = "strIngredient" + i;
+    //   if (cocktailData[ingr] !== null && cocktailData[ingr] !== "") {
+    //     cocktailData.ingridients.push(cocktailData[ingr]);
+    //   }
+    // }
+
+    const normalizeCoctail = {};
+
+    const entriesIngr = Object.entries(cocktailData).filter(
+      (key) =>
+        key[0].includes("strIngredient") && key[1] !== null && key[1] !== ""
+    );
+
+    const ingridientsObj = Object.fromEntries(entriesIngr);
+
+    normalizeCoctail.name = cocktailData.strDrink;
+    normalizeCoctail.img = cocktailData.strDrinkThumb;
+    normalizeCoctail.recipe = cocktailData.strInstructions;
+    normalizeCoctail.ingridients = Object.values(ingridientsObj);
+
+    return normalizeCoctail;
   }
 
   clickHandler = async (event) => {
@@ -34,7 +50,7 @@ class LoadCocktail extends React.Component {
     let response = await fetch(url);
     let cocktailData = await response.json();
 
-    this.normalizeCoctailData(cocktailData);
+    cocktailData = this.normalizeCocktailData(cocktailData);
 
     this.setState({
       cocktailData: [...this.state.cocktailData, cocktailData],
@@ -61,4 +77,4 @@ class LoadCocktail extends React.Component {
   }
 }
 
-export default LoadCocktail;
+export default CocktailLoader;

@@ -7,13 +7,13 @@ import CocktailRecipe from "./CocktailRecipe";
 class CocktailPanel extends React.Component {
   render() {
     return this.props.cocktailData.map((cocktail) => (
-      <Row key={cocktail.strDrink} className="panel px-0 mb-4">
+      <Row key={cocktail.name} className="panel px-0 mb-4">
         <div className="text-center px-0">
-          <h3 className="card-header">{cocktail.strDrink}</h3>
+          <h3 className="card-header">{cocktail.name}</h3>
         </div>
-        <CocktailImage img={cocktail.strDrinkThumb} />
+        <CocktailImage img={cocktail.img} />
         <CocktailIngridients ingridients={cocktail.ingridients} />
-        <CocktailRecipe recipe={cocktail.strInstructions} />
+        <CocktailRecipe recipe={cocktail.recipe} />
       </Row>
     ));
   }
