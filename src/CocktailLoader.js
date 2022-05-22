@@ -1,4 +1,4 @@
-import CocktailPanel from "./CocktailPanel";
+import CocktailList from "./CocktailList";
 import ButtonsAndSpinner from "./ButtonsAndSpinner";
 import React from "react";
 import { Container } from "react-bootstrap";
@@ -7,18 +7,9 @@ class CocktailLoader extends React.Component {
   state = {
     cocktailData: [],
     isLoading: false,
-    defaultShow: "",
   };
 
   normalizeCocktailData(cocktailData) {
-    // cocktailData.ingridients = [];
-    // for (let i = 1; i <= 15; i++) {
-    //   let ingr = "strIngredient" + i;
-    //   if (cocktailData[ingr] !== null && cocktailData[ingr] !== "") {
-    //     cocktailData.ingridients.push(cocktailData[ingr]);
-    //   }
-    // }
-
     const normalizeCoctail = {};
 
     const entriesIngr = Object.entries(cocktailData).filter(
@@ -37,13 +28,8 @@ class CocktailLoader extends React.Component {
   }
 
   clickHandler = async (event) => {
-    event.preventDefault();
-    let t = event.target;
-    if (!t.classList.contains("load-cocktail")) return true;
-
     this.setState({
       isLoading: true,
-      defaultShow: "hide ",
     });
 
     let url = "https://cocktail.mikhailiatsien1.repl.co/random";
@@ -61,15 +47,15 @@ class CocktailLoader extends React.Component {
   render() {
     return (
       <section
-        onClick={this.clickHandler}
         id="main"
         className="bg-color-main height100 d-flex align-items-center"
       >
         <Container className="p-3">
-          <CocktailPanel cocktailData={this.state.cocktailData} />
+          <CocktailList cocktailData={this.state.cocktailData} />
           <ButtonsAndSpinner
             isLoading={this.state.isLoading}
-            defaultShow={this.state.defaultShow}
+            clickHandler={this.clickHandler}
+            cocktailData={this.state.cocktailData}
           />
         </Container>
       </section>
