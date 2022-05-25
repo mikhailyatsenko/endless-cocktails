@@ -43,7 +43,12 @@ class CocktailLoader extends React.Component {
       isLoading: false,
     });
   };
-
+  removeCocktailHandler(index) {
+    this.state.cocktailData.splice(index, 1);
+    this.setState({
+      cocktailData: this.state.cocktailData,
+    });
+  }
   render() {
     return (
       <section
@@ -51,7 +56,10 @@ class CocktailLoader extends React.Component {
         className="bg-color-main height100 d-flex align-items-center"
       >
         <Container className="p-3">
-          <CocktailList cocktailData={this.state.cocktailData} />
+          <CocktailList
+            cocktailData={this.state.cocktailData}
+            removeCocktail={this.removeCocktailHandler.bind(this)}
+          />
           <ButtonsAndSpinner
             isLoading={this.state.isLoading}
             clickHandler={this.clickHandler}

@@ -3,11 +3,13 @@ import { Button } from "react-bootstrap";
 
 class ButtonsAndSpinner extends React.Component {
   scrollRef = React.createRef();
-  componentDidUpdate() {
-    this.scrollRef.current.scrollIntoView({
-      block: "end",
-      behavior: "smooth",
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.cocktailData < this.props.cocktailData) {
+      this.scrollRef.current.scrollIntoView({
+        block: "end",
+        behavior: "smooth",
+      });
+    }
   }
 
   render() {
