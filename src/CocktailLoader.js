@@ -12,10 +12,11 @@ class CocktailLoader extends React.Component {
   normalizeCocktailData(cocktailData) {
     const normalizeCoctail = {};
 
-    const entriesIngr = Object.entries(cocktailData).filter(
-      (key) =>
-        key[0].includes("strIngredient") && key[1] !== null && key[1] !== ""
-    );
+    const entriesIngr = Object.entries(cocktailData).filter((entrie) => {
+      const key = entrie[0];
+      const value = entrie[1];
+      return key.includes("strIngredient") && value !== null && value !== "";
+    });
 
     const ingridientsObj = Object.fromEntries(entriesIngr);
 

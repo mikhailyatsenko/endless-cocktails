@@ -10,10 +10,10 @@ class CocktailList extends React.Component {
         {this.props.cocktailData.map((cocktail, index) => (
           <motion.div
             layout
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: "spring", bounce: 0.25, duration: 0.7 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            // transition={{ duration: 2 }}
             key={cocktail.name}
             className="row panel px-0 mb-4"
           >

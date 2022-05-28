@@ -14,7 +14,7 @@ class ButtonsAndSpinner extends React.Component {
 
   render() {
     return (
-      <div className="text-center">
+      <div ref={this.scrollRef} className="text-center">
         {this.props.cocktailData.length ? null : (
           <div className="text-center pt-3">
             <h1 className="pb-3">Press button to generate cocktail</h1>
@@ -22,13 +22,12 @@ class ButtonsAndSpinner extends React.Component {
         )}
 
         {this.props.isLoading ? (
-          <div ref={this.scrollRef}>
+          <div>
             <div className="d-block mx-auto spinner-border" role="status"></div>
             <p className="text-center">Loading cocktail...</p>
           </div>
         ) : (
           <Button
-            ref={this.scrollRef}
             onClick={this.props.clickHandler}
             variant="dark"
             className="btn-lg"
