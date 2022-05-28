@@ -50,6 +50,7 @@ class CocktailLoader extends React.Component {
       cocktailData: this.state.cocktailData,
     });
   }
+
   render() {
     return (
       <section
