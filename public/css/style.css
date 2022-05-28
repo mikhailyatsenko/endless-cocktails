@@ -10,6 +10,10 @@ a:hover {
   text-decoration: inherit !important;
 }
 
+.container {
+  overflow: hidden;
+}
+
 .hide {
   display: none !important;
 }
