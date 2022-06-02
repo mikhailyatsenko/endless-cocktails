@@ -94,26 +94,22 @@ a:hover {
   color: white;
 }
 
-.material-icons {
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 28px !important; /* Preferred icon size */
-  display: inline-block;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
+.pointer {
+  cursor: pointer;
+}
 
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
+.fav-counter {
+  position: fixed;
+  right: 80px;
+  bottom: 40px;
+  background-color: black;
+  color: white;
+  /* border-radius: 10%; */
+  padding: 5px 10px;
+  opacity: 0.4;
+}
 
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: "liga";
+.fav-counter:hover {
+  opacity: 1;
+  cursor: pointer;
 }

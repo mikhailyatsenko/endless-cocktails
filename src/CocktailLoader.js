@@ -2,11 +2,13 @@ import CocktailList from "./CocktailList";
 import ButtonsAndSpinner from "./ButtonsAndSpinner";
 import React from "react";
 import { Container } from "react-bootstrap";
+import { motion } from "framer-motion";
 
 class CocktailLoader extends React.Component {
   state = {
     cocktailData: [],
     isLoading: false,
+    cocktailInFav: this.getFavoriteCocktails().map((coctail) => coctail.name),
   };
 
   normalizeCocktailData(cocktailData) {
@@ -28,7 +30,7 @@ class CocktailLoader extends React.Component {
     return normalizeCoctail;
   }
 
-  clickHandler = async (event) => {
+  clickHandler = async () => {
     this.setState({
       isLoading: true,
     });
@@ -44,11 +46,49 @@ class CocktailLoader extends React.Component {
       isLoading: false,
     });
   };
+
   removeCocktailHandler(index) {
-    this.state.cocktailData.splice(index, 1);
+    const newCocktailData = this.state.cocktailData;
+    newCocktailData.splice(index, 1);
     this.setState({
-      cocktailData: this.state.cocktailData,
+      cocktailData: newCocktailData,
     });
+  }
+
+  addToFavoriteHandler(index) {
+    const cocktailToFav = this.state.cocktailData[index];
+    let favCocktails = this.getFavoriteCocktails();
+    let done = false;
+
+    if (favCocktails.length === 0) {
+      favCocktails = [cocktailToFav];
+      done = true;
+      // console.log("add first cocktail to LS");
+    } else {
+      for (let i = 0; i < favCocktails.length; i++) {
+        if (favCocktails[i].name === cocktailToFav.name) {
+          favCocktails.splice(i, 1);
+          done = true;
+          // console.log("removed", i);
+        }
+      }
+    }
+
+    if (!done) favCocktails = [...favCocktails, cocktailToFav];
+
+    localStorage.setItem("favCocktails", JSON.stringify(favCocktails));
+    this.setState({
+      cocktailInFav: favCocktails.map((coctail) => coctail.name),
+    });
+    // console.log("localStorage setted");
+  }
+
+  getFavoriteCocktails() {
+    let favCocktails;
+    localStorage.getItem("favCocktails") === null
+      ? (favCocktails = [])
+      : (favCocktails = JSON.parse(localStorage.getItem("favCocktails")));
+    return favCocktails;
   }
 
   render() {
@@ -61,6 +101,8 @@ class CocktailLoader extends React.Component {
           <CocktailList
             cocktailData={this.state.cocktailData}
             removeCocktail={this.removeCocktailHandler.bind(this)}
+            addToFavorite={this.addToFavoriteHandler.bind(this)}
+            cocktailInFav={this.state.cocktailInFav}
           />
           <ButtonsAndSpinner
             isLoading={this.state.isLoading}

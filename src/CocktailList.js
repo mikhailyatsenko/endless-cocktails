@@ -13,12 +13,21 @@ class CocktailList extends React.Component {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            // transition={{ duration: 2 }}
             key={cocktail.name}
             className="row panel px-0 mb-4"
           >
-            <div className="text-center px-0">
-              <h3 className="card-header">{cocktail.name}</h3>
+            <div className="card-header text-center px-0">
+              <h3 className="mb-0">
+                {cocktail.name}
+                <span
+                  className="pointer material-icons-outlined"
+                  onClick={this.props.addToFavorite.bind(null, index)}
+                >
+                  {this.props.cocktailInFav.includes(cocktail.name)
+                    ? "bookmark"
+                    : "bookmark_border"}
+                </span>
+              </h3>
             </div>
             <Col md={4} className="text-center p-3">
               <img
@@ -41,11 +50,23 @@ class CocktailList extends React.Component {
                 className="text-center px-0 card-delete"
                 onClick={this.props.removeCocktail.bind(null, index)}
               >
-                <span className="material-icons">remove_circle</span>
+                <span className="material-icons-outlined">remove_circle</span>
               </div>
             </OverlayTrigger>
           </motion.div>
         ))}
+        {this.props.cocktailInFav.length ? (
+          <motion.div
+            layout
+            initial={{ x: 400 }}
+            animate={{ x: 0 }}
+            className="fav-counter"
+          >
+            <a href="favorites" target="blank">
+              Show favorite coctails ({this.props.cocktailInFav.length})
+            </a>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
     );
   }
