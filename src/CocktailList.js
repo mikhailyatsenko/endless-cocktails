@@ -60,6 +60,7 @@ class CocktailList extends React.Component {
             layout
             initial={{ x: 400 }}
             animate={{ x: 0 }}
+            exit={{ x: 400 }}
             className="fav-counter"
           >
             <a href="favorites" target="blank">

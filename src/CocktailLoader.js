@@ -2,7 +2,6 @@ import CocktailList from "./CocktailList";
 import ButtonsAndSpinner from "./ButtonsAndSpinner";
 import React from "react";
 import { Container } from "react-bootstrap";
-import { motion } from "framer-motion";
 
 class CocktailLoader extends React.Component {
   state = {
