@@ -1,7 +1,7 @@
 import React from "react";
-import CocktailLoader from "./CocktailLoader";
+import CocktailLoader from "./main/CocktailLoader";
 import Footer from "./Footer";
-import FavoriteCocktailsLoader from "./FavoriteCocktailsLoader";
+import FavoriteCocktailsLoader from "./favorite/FavoriteCocktailsLoader";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

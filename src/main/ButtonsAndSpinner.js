@@ -28,7 +28,7 @@ class ButtonsAndSpinner extends React.Component {
           </div>
         ) : (
           <Button
-            onClick={this.props.clickHandler}
+            onClick={this.props.generateButtonHandler}
             variant="dark"
             className="btn-lg"
           >

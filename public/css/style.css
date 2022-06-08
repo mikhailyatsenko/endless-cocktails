@@ -5,9 +5,16 @@ body,
 }
 
 #main a,
-a:hover {
+#favorite-cocktails a,
+.btn-link {
   color: inherit !important;
   text-decoration: inherit !important;
+  cursor: pointer;
+}
+
+#favorite-cocktails a:hover,
+.btn-link:hover {
+  text-decoration: underline !important;
 }
 
 .container {
@@ -100,11 +107,11 @@ a:hover {
 
 .fav-counter {
   position: fixed;
-  right: 80px;
-  bottom: 40px;
+  right: 0;
+  top: 75px;
   background-color: black;
   color: white;
-  /* border-radius: 10%; */
+  border-radius: 0.3rem 0 0 0.3rem;
   padding: 5px 10px;
   opacity: 0.4;
 }
@@ -112,4 +119,20 @@ a:hover {
 .fav-counter:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.card {
+  background-color: rgb(241 241 241 / 10%) !important;
+}
+
+.modal-content {
+  background-color: #fceabb !important;
+}
+
+.modal-header {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.undrln {
+  text-decoration: underline;
 }

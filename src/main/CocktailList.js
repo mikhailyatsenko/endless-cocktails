@@ -16,18 +16,19 @@ class CocktailList extends React.Component {
             key={cocktail.name}
             className="row panel px-0 mb-4"
           >
-            <div className="card-header text-center px-0">
-              <h3 className="mb-0">
-                {cocktail.name}
-                <span
-                  className="pointer material-icons-outlined"
-                  onClick={this.props.addToFavorite.bind(null, index)}
-                >
-                  {this.props.cocktailInFav.includes(cocktail.name)
-                    ? "bookmark"
-                    : "bookmark_border"}
-                </span>
-              </h3>
+            <div className="card-header px-0 d-flex">
+              <div className="w-100">
+                <h3 className="mb-0 ms-5 text-center">{cocktail.name}</h3>
+              </div>
+              <span
+                style={{ fontSize: "32px" }}
+                className="pointer material-icons-outlined me-4"
+                onClick={this.props.addToFavorite.bind(null, index)}
+              >
+                {this.props.cocktailInFav.includes(cocktail.name)
+                  ? "bookmark"
+                  : "bookmark_border"}
+              </span>
             </div>
             <Col md={4} className="text-center p-3">
               <img
@@ -55,19 +56,6 @@ class CocktailList extends React.Component {
             </OverlayTrigger>
           </motion.div>
         ))}
-        {this.props.cocktailInFav.length ? (
-          <motion.div
-            layout
-            initial={{ x: 400 }}
-            animate={{ x: 0 }}
-            exit={{ x: 400 }}
-            className="fav-counter"
-          >
-            <a href="favorites" target="blank">
-              Show favorite coctails ({this.props.cocktailInFav.length})
-            </a>
-          </motion.div>
-        ) : null}
       </AnimatePresence>
     );
   }

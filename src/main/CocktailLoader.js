@@ -1,5 +1,6 @@
 import CocktailList from "./CocktailList";
 import ButtonsAndSpinner from "./ButtonsAndSpinner";
+import FavoriteCounter from "./FavoriteCounter";
 import React from "react";
 import { Container } from "react-bootstrap";
 
@@ -29,7 +30,7 @@ class CocktailLoader extends React.Component {
     return normalizeCoctail;
   }
 
-  clickHandler = async () => {
+  generateButtonHandler = async () => {
     this.setState({
       isLoading: true,
     });
@@ -47,8 +48,9 @@ class CocktailLoader extends React.Component {
   };
 
   removeCocktailHandler(index) {
-    const newCocktailData = this.state.cocktailData;
-    newCocktailData.splice(index, 1);
+    const newCocktailData = this.state.cocktailData.filter(
+      (coctail) => coctail.name !== this.state.cocktailData[index].name
+    );
     this.setState({
       cocktailData: newCocktailData,
     });
@@ -62,13 +64,11 @@ class CocktailLoader extends React.Component {
     if (favCocktails.length === 0) {
       favCocktails = [cocktailToFav];
       done = true;
-      // console.log("add first cocktail to LS");
     } else {
       for (let i = 0; i < favCocktails.length; i++) {
         if (favCocktails[i].name === cocktailToFav.name) {
           favCocktails.splice(i, 1);
           done = true;
-          // console.log("removed", i);
         }
       }
     }
@@ -79,7 +79,6 @@ class CocktailLoader extends React.Component {
     this.setState({
       cocktailInFav: favCocktails.map((coctail) => coctail.name),
     });
-    // console.log("localStorage setted");
   }
 
   getFavoriteCocktails() {
@@ -105,9 +104,10 @@ class CocktailLoader extends React.Component {
           />
           <ButtonsAndSpinner
             isLoading={this.state.isLoading}
-            clickHandler={this.clickHandler}
+            generateButtonHandler={this.generateButtonHandler}
             cocktailData={this.state.cocktailData}
           />
+          <FavoriteCounter cocktailInFav={this.state.cocktailInFav} />
         </Container>
       </section>
     );
