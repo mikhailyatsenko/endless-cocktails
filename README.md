@@ -1,5 +1,5 @@
 # write stack:
-- **react-create-app**
+- react-create-app
 - react
 - react-bootstrap
 - framer-motion
