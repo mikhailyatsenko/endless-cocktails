@@ -35,7 +35,7 @@ class CocktailLoader extends React.Component {
       isLoading: true,
     });
 
-    let url = "https://cocktail.mikhailiatsien1.repl.co/random";
+    let url = "https://haunted-pumpkin-52020.herokuapp.com/random";
     let response = await fetch(url);
     let cocktailData = await response.json();
 
@@ -48,9 +48,7 @@ class CocktailLoader extends React.Component {
   };
 
   removeCocktailHandler(index) {
-    const newCocktailData = this.state.cocktailData.filter(
-      (coctail) => coctail.name !== this.state.cocktailData[index].name
-    );
+    const newCocktailData = this.state.cocktailData.filter((coctail) => coctail.name !== this.state.cocktailData[index].name);
     this.setState({
       cocktailData: newCocktailData,
     });
@@ -83,30 +81,16 @@ class CocktailLoader extends React.Component {
 
   getFavoriteCocktails() {
     let favCocktails;
-    localStorage.getItem("favCocktails") === null
-      ? (favCocktails = [])
-      : (favCocktails = JSON.parse(localStorage.getItem("favCocktails")));
+    localStorage.getItem("favCocktails") === null ? (favCocktails = []) : (favCocktails = JSON.parse(localStorage.getItem("favCocktails")));
     return favCocktails;
   }
 
   render() {
     return (
-      <section
-        id="main"
-        className="bg-color-main height100 d-flex align-items-center"
-      >
+      <section id="main" className="bg-color-main height100 d-flex align-items-center">
         <Container className="p-3">
-          <CocktailList
-            cocktailData={this.state.cocktailData}
-            removeCocktail={this.removeCocktailHandler.bind(this)}
-            addToFavorite={this.addToFavoriteHandler.bind(this)}
-            cocktailInFav={this.state.cocktailInFav}
-          />
-          <ButtonsAndSpinner
-            isLoading={this.state.isLoading}
-            generateButtonHandler={this.generateButtonHandler}
-            cocktailData={this.state.cocktailData}
-          />
+          <CocktailList cocktailData={this.state.cocktailData} removeCocktail={this.removeCocktailHandler.bind(this)} addToFavorite={this.addToFavoriteHandler.bind(this)} cocktailInFav={this.state.cocktailInFav} />
+          <ButtonsAndSpinner isLoading={this.state.isLoading} generateButtonHandler={this.generateButtonHandler} cocktailData={this.state.cocktailData} />
           <FavoriteCounter cocktailInFav={this.state.cocktailInFav} />
         </Container>
       </section>
