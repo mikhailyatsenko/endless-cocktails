@@ -35,7 +35,7 @@ class CocktailLoader extends React.Component {
       isLoading: true,
     });
 
-    let url = "https://haunted-pumpkin-52020.herokuapp.com/random";
+    let url = "http://54.175.19.77:3500/random";
     let response = await fetch(url);
     let cocktailData = await response.json();
 
